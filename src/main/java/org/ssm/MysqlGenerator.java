@@ -68,7 +68,7 @@ public class MysqlGenerator {
 		DataSourceConfig dsc = new DataSourceConfig();
 		Props props = new Props("jdbc.properties");
 		dsc.setUrl(props.getStr("jdbcUrl"));
-		dsc.setDriverName("jdbcDriver");
+		dsc.setDriverName(props.getStr("jdbcDriver"));
 		dsc.setUsername(props.getStr("username"));
 		dsc.setPassword(props.getStr("password"));
 		mpg.setDataSource(dsc);
@@ -108,7 +108,8 @@ public class MysqlGenerator {
 		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
 		strategy.setEntityLombokModel(true);
 		strategy.setInclude(scanner("表名"));
-		strategy.setEntityTableFieldAnnotationEnable(true);
+		strategy.setEntityTableFieldAnnotationEnable(false);
+		strategy.setEntitySerialVersionUID(false);
 		mpg.setStrategy(strategy);
 		// 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
 		mpg.setTemplateEngine(new FreemarkerTemplateEngine());
@@ -121,7 +122,7 @@ public class MysqlGenerator {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				// 自定义输入文件名称
-				return projectPath + "/src/main/resources/mybatis/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+				return projectPath + "/src/main/resources/mapping/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
 			}
 		});
 
@@ -129,7 +130,7 @@ public class MysqlGenerator {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				// 自定义输入文件名称
-				return projectPath + "/src/main/java/com/cnc/si/mapper/" + pc.getModuleName() + "/" + tableInfo.getEntityName() + "Mapper" +
+				return projectPath + "/src/main/java/org/ssm/mapper/" + pc.getModuleName() + "/" + tableInfo.getEntityName() + "Mapper" +
 						StringPool.DOT_JAVA;
 			}
 		});
@@ -138,7 +139,7 @@ public class MysqlGenerator {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				// 自定义输入文件名称
-				return projectPath + "/src/main/java/com/cnc/si/model/" + pc.getModuleName() + "/" + tableInfo.getEntityName() +
+				return projectPath + "/src/main/java/org/ssm/model/" + pc.getModuleName() + "/" + tableInfo.getEntityName() +
 						StringPool.DOT_JAVA;
 			}
 		});
