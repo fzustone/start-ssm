@@ -17,52 +17,5 @@
         from student
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from student
-        where id = #{id,jdbcType=INTEGER}
-    </delete>
-    <insert id="insert" parameterType="org.ssm.model.student.Student">
-        insert into student (id, name, age,
-        grade, remark)
-        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
-        #{grade,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insertSelective" parameterType="org.ssm.model.student.Student">
-        insert into student
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="age != null">
-                age,
-            </if>
-            <if test="grade != null">
-                grade,
-            </if>
-            <if test="remark != null">
-                remark,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="age != null">
-                #{age,jdbcType=INTEGER},
-            </if>
-            <if test="grade != null">
-                #{grade,jdbcType=VARCHAR},
-            </if>
-            <if test="remark != null">
-                #{remark,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
 
 </mapper>
